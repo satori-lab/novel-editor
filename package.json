@@ -11,7 +11,7 @@
     "pack-app": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "type-check": "tsc",
-    "fmt": "prettier --write electron-src/* renderer/*"
+    "fmt": "prettier --check electron-src/* renderer/*"
   },
   "dependencies": {
     "electron-is-dev": "^1.1.0",
