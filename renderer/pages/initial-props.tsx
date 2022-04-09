@@ -7,27 +7,27 @@ import { findAll } from '../utils/sample-api'
 
 type Props = {
     items: User[]
-    pathname: string
 }
 
-const WithInitialProps = ({ items }: Props) => {
+function WithInitialProps({ items }: Props) {
     const router = useRouter()
     return (
         <Layout title="List Example (as Function Component) | Next.js + TypeScript + Electron Example">
             <h1>List Example (as Function Component)</h1>
-            <p>You are currently on: {router.pathname}</p>
+            <p>
+                You are currently on:
+                {router.pathname}
+            </p>
             <List items={items} />
             <p>
-                <Link href="/">
-                    <a>Go home</a>
-                </Link>
+                <Link href="/">Go home</Link>
             </p>
         </Layout>
     )
 }
 
-export async function getStaticProps() {
-    const items: User[] = await findAll()
+export function getStaticProps() {
+    const items: User[] = findAll()
 
     return { props: { items } }
 }

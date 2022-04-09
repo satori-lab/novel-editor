@@ -7,12 +7,12 @@ type Props = {
     data: User
 }
 
-const ListItem = ({ data }: Props) => (
-    <Link href="/detail/[id]" as={`/detail/${data.id}`}>
-        <a>
-            {data.id}: {data.name}
-        </a>
-    </Link>
-)
+function ListItem({ data }: Props) {
+    return (
+        <Link href="/detail/[id]" as={`/detail/${data.id}`}>
+            {data.id}:{data.name}
+        </Link>
+    )
+}
 
 export default ListItem

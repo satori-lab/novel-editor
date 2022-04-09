@@ -1,9 +1,9 @@
 // import { NextPageContext } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Layout from '../../components/Layout'
 import { User } from '../../interfaces'
 import { findAll, findData } from '../../utils/sample-api'
 import ListDetail from '../../components/ListDetail'
-import { GetStaticPaths, GetStaticProps } from 'next'
 
 type Params = {
     id?: string
@@ -14,10 +14,10 @@ type Props = {
     errors?: string
 }
 
-const InitialPropsDetail = ({ item, errors }: Props) => {
+function InitialPropsDetail({ item, errors }: Props) {
     if (errors) {
         return (
-            <Layout title={`Error | Next.js + TypeScript + Electron Example`}>
+            <Layout title="Error | Next.js + TypeScript + Electron Example">
                 <p>
                     <span style={{ color: 'red' }}>Error:</span> {errors}
                 </p>
@@ -36,17 +36,18 @@ const InitialPropsDetail = ({ item, errors }: Props) => {
     )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const items: User[] = await findAll()
+export const getStaticPaths: GetStaticPaths = () => {
+    const items: User[] = findAll()
     const paths = items.map((item) => `/detail/${item.id}`)
     return { paths, fallback: false }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = ({ params }) => {
     const { id } = params as Params
 
     try {
-        const item = await findData(Array.isArray(id) ? id[0] : id)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const item = findData(Array.isArray(id) ? id[0] : id)
         return {
             props: {
                 item,
@@ -55,6 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } catch (err) {
         return {
             props: {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
                 errors: err.message,
             },
         }

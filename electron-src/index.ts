@@ -8,6 +8,7 @@ import isDev from 'electron-is-dev'
 import prepareNext from 'electron-next'
 
 // Prepare the renderer once the app is ready
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 app.on('ready', async () => {
     await prepareNext('./renderer')
 
@@ -29,14 +30,16 @@ app.on('ready', async () => {
               slashes: true,
           })
 
-    mainWindow.loadURL(url)
+    await mainWindow.loadURL(url)
 })
 
 // Quit the app once all windows are closed
+// eslint-disable-next-line @typescript-eslint/unbound-method
 app.on('window-all-closed', app.quit)
 
 // listen the channel `message` and resend the received message to the renderer process
 ipcMain.on('message', (event: IpcMainEvent, message: any) => {
+    // eslint-disable-next-line no-console
     console.log(message)
     setTimeout(() => event.sender.send('message', 'hi from electron'), 500)
 })

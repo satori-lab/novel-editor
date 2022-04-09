@@ -5,7 +5,9 @@ declare module 'electron-next' {
     }
 
     export default function (
+        // eslint-disable-next-line no-unused-vars
         directories: Directories | string,
+        // eslint-disable-next-line no-unused-vars
         port?: number
     ): Promise<void>
 }

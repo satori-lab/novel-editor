@@ -2,3 +2,4 @@
 /dist
 /renderer/.next/
 /renderer/out/
+**/*.json
