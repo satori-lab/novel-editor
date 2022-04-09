@@ -1,62 +1,66 @@
 // import { NextPageContext } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Layout from '../../components/Layout'
 import { User } from '../../interfaces'
 import { findAll, findData } from '../../utils/sample-api'
 import ListDetail from '../../components/ListDetail'
-import { GetStaticPaths, GetStaticProps } from 'next'
 
 type Params = {
-  id?: string
+    id?: string
 }
 
 type Props = {
-  item?: User
-  errors?: string
+    item?: User
+    errors?: string
 }
 
-const InitialPropsDetail = ({ item, errors }: Props) => {
-  if (errors) {
+function InitialPropsDetail({ item, errors }: Props) {
+    if (errors) {
+        return (
+            <Layout title="Error | Next.js + TypeScript + Electron Example">
+                <p>
+                    <span style={{ color: 'red' }}>Error:</span> {errors}
+                </p>
+            </Layout>
+        )
+    }
+
     return (
-      <Layout title={`Error | Next.js + TypeScript + Electron Example`}>
-        <p>
-          <span style={{ color: 'red' }}>Error:</span> {errors}
-        </p>
-      </Layout>
+        <Layout
+            title={`${
+                item ? item.name : 'Detail'
+            } | Next.js + TypeScript Example`}
+        >
+            {item && <ListDetail item={item} />}
+        </Layout>
     )
-  }
-
-  return (
-    <Layout
-      title={`${item ? item.name : 'Detail'} | Next.js + TypeScript Example`}
-    >
-      {item && <ListDetail item={item} />}
-    </Layout>
-  )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const items: User[] = await findAll()
-  const paths = items.map((item) => `/detail/${item.id}`)
-  return { paths, fallback: false }
+export const getStaticPaths: GetStaticPaths = () => {
+    const items: User[] = findAll()
+    const paths = items.map((item) => `/detail/${item.id}`)
+    return { paths, fallback: false }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id } = params as Params
+export const getStaticProps: GetStaticProps = ({ params }) => {
+    const { id } = params as Params
 
-  try {
-    const item = await findData(Array.isArray(id) ? id[0] : id)
-    return {
-      props: {
-        item,
-      },
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const item = findData(Array.isArray(id) ? id[0] : id)
+        return {
+            props: {
+                item,
+            },
+        }
+    } catch (err) {
+        return {
+            props: {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+                errors: err.message,
+            },
+        }
     }
-  } catch (err) {
-    return {
-      props: {
-        errors: err.message,
-      },
-    }
-  }
 }
 
 export default InitialPropsDetail

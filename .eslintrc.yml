@@ -1,0 +1,50 @@
+env:
+  es2021: true
+  node: true
+extends:
+  - plugin:react/recommended
+  - airbnb
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+  - prettier
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: latest
+  sourceType: module
+  project:
+    - renderer/tsconfig.json
+    - electron-src/tsconfig.json
+  extraFileExtensions:
+    - .json
+plugins:
+  - react
+  - '@typescript-eslint'
+  - import
+rules:
+  react/react-in-jsx-scope: off
+  react/require-default-props: off
+  import/extensions:
+    - error
+    - ignorePackages
+    - 
+      js: never
+      jsx: never
+      ts: never
+      tsx: never
+  react/jsx-filename-extension:
+    - error
+    - extensions:
+      - .jsx
+      - .tsx
+  import/no-extraneous-dependencies:
+    - error
+    -
+      devDependencies: 
+        - '/renderer/**/*'
+        - '/electron-src/**/*'
+      peerDependencies: false
