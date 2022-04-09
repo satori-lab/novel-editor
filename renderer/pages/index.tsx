@@ -1,6 +1,17 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
+import { IpcRenderer } from 'electron'
 import Layout from '../components/Layout'
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace NodeJS {
+    interface Global {
+      ipcRenderer: IpcRenderer
+    }
+  }
+}
+
 
 function IndexPage() {
     useEffect(() => {

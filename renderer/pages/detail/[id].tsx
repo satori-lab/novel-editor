@@ -1,17 +1,17 @@
 // import { NextPageContext } from 'next'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Layout from '../../components/Layout'
-import { User } from '../../interfaces'
 import { findAll, findData } from '../../utils/sample-api'
 import ListDetail from '../../components/ListDetail'
+import * as entity from '../../entity'
 
 type Params = {
     id?: string
 }
 
 type Props = {
-    item?: User
-    errors?: string
+  item?: entity.User.model
+  errors?: string
 }
 
 function InitialPropsDetail({ item, errors }: Props) {
@@ -37,9 +37,9 @@ function InitialPropsDetail({ item, errors }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
-    const items: User[] = findAll()
-    const paths = items.map((item) => `/detail/${item.id}`)
-    return { paths, fallback: false }
+  const items: entity.User.model[] = findAll()
+  const paths = items.map((item) => `/detail/${item.id}`)
+  return { paths, fallback: false }
 }
 
 export const getStaticProps: GetStaticProps = ({ params }) => {

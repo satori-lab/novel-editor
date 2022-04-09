@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { User } from '../interfaces'
+import * as entity from '../entity'
 
 type Props = {
-    data: User
+  data: entity.User.model
 }
 
 function ListItem({ data }: Props) {
