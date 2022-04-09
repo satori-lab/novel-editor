@@ -1,2 +1,2 @@
-export * from "./httpbin";
-export * from "./user";
+export * from './httpbin'
+export * from './user'

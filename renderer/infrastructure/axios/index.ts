@@ -1,1 +1,1 @@
-export * as AXIOS from "./axios";
+export * as AXIOS from './axios'

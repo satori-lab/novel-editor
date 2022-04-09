@@ -4,13 +4,13 @@ import Link from 'next/link'
 import * as entity from '../entity'
 
 type Props = {
-  data: entity.User.model
+    data: entity.User.model
 }
 
 function ListItem({ data }: Props) {
     return (
         <Link href="/detail/[id]" as={`/detail/${data.id}`}>
-            {data.id}:{data.name}
+            {`${data.id}:${data.name}`}
         </Link>
     )
 }

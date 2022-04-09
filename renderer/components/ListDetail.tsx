@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as entity from '../entity'
 
 type ListDetailProps = {
-  item: entity.User.model
+    item: entity.User.model
 }
 
 function ListDetail({ item: user }: ListDetailProps) {

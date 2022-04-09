@@ -10,8 +10,8 @@ type Params = {
 }
 
 type Props = {
-  item?: entity.User.model
-  errors?: string
+    item?: entity.User.model
+    errors?: string
 }
 
 function InitialPropsDetail({ item, errors }: Props) {
@@ -37,9 +37,9 @@ function InitialPropsDetail({ item, errors }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const items: entity.User.model[] = findAll()
-  const paths = items.map((item) => `/detail/${item.id}`)
-  return { paths, fallback: false }
+    const items: entity.User.model[] = findAll()
+    const paths = items.map((item) => `/detail/${item.id}`)
+    return { paths, fallback: false }
 }
 
 export const getStaticProps: GetStaticProps = ({ params }) => {

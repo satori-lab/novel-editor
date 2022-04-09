@@ -1,1 +1,1 @@
-export * from "./httpbin";
+export * from './httpbin'

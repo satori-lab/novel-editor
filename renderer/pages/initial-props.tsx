@@ -7,8 +7,8 @@ import * as entity from '../entity'
 import * as Infra from '../infrastructure'
 
 type Props = {
-  items: entity.User.model[]
-  httpbin: entity.HttpBin.model
+    items: entity.User.model[]
+    httpbin: entity.HttpBin.model
 }
 
 function WithInitialProps({ items, httpbin }: Props) {
@@ -20,7 +20,7 @@ function WithInitialProps({ items, httpbin }: Props) {
                 You are currently on:
                 {router.pathname}
             </p>
-                <List items={items} httpbin={httpbin} />
+            <List items={items} httpbin={httpbin} />
             <p>
                 <Link href="/">Go home</Link>
             </p>
@@ -28,14 +28,14 @@ function WithInitialProps({ items, httpbin }: Props) {
     )
 }
 export async function getStaticProps() {
-  const items: entity.User.model[] = findAll()
-  try {
-    const repo = new Infra.HttpBin.Repository()
-    const res = await repo.get()
-    return { props: { items, httpbin: res.httpbin } }
-  } catch(e) {
-    return { props: { items, httpbin: undefined } }
-  }
+    const items: entity.User.model[] = findAll()
+    try {
+        const repo = new Infra.HttpBin.Repository()
+        const res = await repo.get()
+        return { props: { items, httpbin: res.httpbin } }
+    } catch (e) {
+        return { props: { items, httpbin: undefined } }
+    }
 }
 
 export default WithInitialProps
